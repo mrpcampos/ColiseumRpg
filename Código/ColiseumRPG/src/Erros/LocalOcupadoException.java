@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Mapa;
+package Erros;
 
 /**
  *
  * @author Matheus
  */
-public class Mapa {
-    private Lugar mapa[][];
-    
-    public Mapa(int altura, int largura){
-        mapa=new Lugar[altura][largura];
+public class LocalOcupadoException extends Exception {
+
+    public LocalOcupadoException() {
     }
     
 }

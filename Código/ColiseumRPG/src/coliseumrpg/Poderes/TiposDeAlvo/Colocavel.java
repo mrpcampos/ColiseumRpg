@@ -9,18 +9,8 @@ package coliseumrpg.Poderes.TiposDeAlvo;
  *
  * @author Matheus
  */
-public abstract class Poder {
-    protected String nome;
-    protected String descricao;
+public class Colocavel extends Poder {
+    private int quantidade;
     
-    
-    
-    public String getNome() {
-        return nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
     
 }

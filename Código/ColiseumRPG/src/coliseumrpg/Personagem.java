@@ -27,6 +27,38 @@ public class Personagem {
     }
     
     public void defineClasse(Especialidade especialidade){
+        this.especialidade=especialidade;
+    }
+
+    public void receberDano(int dano){
         
+    }
+
+    public void atacar(){
+        
+    }
+    
+    public void declararMorte(){
+        //Insira código aqui
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+    
+    public void setDano(int dano){
+        this.dano=dano;
+    }
+    
+    public void setAlcance(int alcance){
+        this.alcance=alcance;
     }
 }

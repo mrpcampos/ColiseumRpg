@@ -13,10 +13,17 @@ import Mapa.Lugar;
  * @author Matheus
  */
 public class Explosao extends Magia{
+    private final int dano;
 
+    public Explosao(int dano) {
+        this.dano = dano;
+    }
+    
+    
     @Override
     public void usar(int distancia, Lugar alvo) {
-        
+        alvo.getPersonagem().receberDano(dano);
+        alvo.destruir();
     }
     
 }
