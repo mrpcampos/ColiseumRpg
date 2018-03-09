@@ -12,7 +12,8 @@ package coliseumrpg;
 public class Personagem {
     String nome;
     private int velocidade;
-    private int vida;
+    private final int vidaMaxima;
+    private int vidaAtual;
     private int dano;
     private int alcance;
     
@@ -20,7 +21,8 @@ public class Personagem {
     
     public Personagem(String nome, int vida, int velocidade, int alcance, int dano) {
         this.nome=nome;
-        this.vida = vida;
+        this.vidaMaxima = vida;
+        this.vidaAtual=vida;
         this.velocidade = velocidade;
         this.alcance = alcance;
         this.dano = dano;
@@ -31,14 +33,17 @@ public class Personagem {
     }
 
     public void receberDano(int dano){
-        
+        vidaAtual -= dano;
+        if(vidaAtual<=0){
+            declararMorte();
+        }
     }
 
     public void atacar(){
         
     }
     
-    public void declararMorte(){
+    private void declararMorte(){
         //Insira código aqui
     }
 
@@ -46,8 +51,12 @@ public class Personagem {
         return nome;
     }
 
-    public int getVida() {
-        return vida;
+    public int getVidaAtual() {
+        return vidaAtual;
+    }
+    
+    public int getVidaMaxima() {
+        return vidaMaxima;
     }
 
     public Especialidade getEspecialidade() {
@@ -60,5 +69,12 @@ public class Personagem {
     
     public void setAlcance(int alcance){
         this.alcance=alcance;
+    }
+
+    public void curar(int cura) {
+        vidaAtual+=cura;
+        if(vidaAtual>vidaMaxima){
+            vidaAtual=vidaMaxima;
+        }
     }
 }

@@ -5,17 +5,33 @@
  */
 package coliseumrpg;
 
+import InterfaceVisual.ControladorTelas;
+import Mapa.Mapa;
+
 /**
  *
  * @author Matheus
  */
 public class ColiseumRPG {
 
-    /**
-     * @param args the command line arguments
-     */
+    private ControladorTelas controladorTelas;
+    private ColiseumRPG instance;
+    private Mapa mapa;
+    private Personagem personagens[][];
+    
+    private ColiseumRPG() {
+        controladorTelas = new ControladorTelas();
+    }
+
+    public ColiseumRPG getInstance() {
+        if (this.instance == null) {
+            this.instance = new ColiseumRPG();
+        }
+        return this.instance;
+    }
+
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }

@@ -14,9 +14,13 @@ import Mapa.Lugar;
  */
 public class Congelamento extends Magia{
 
+    public Congelamento(int custo) {
+        super(custo);
+    }
+
     @Override
     public void usar(int distancia, Lugar alvo) {
-        
+        alvo.getPersonagem();
     }
     
 }

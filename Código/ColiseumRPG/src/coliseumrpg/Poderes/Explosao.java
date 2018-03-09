@@ -15,7 +15,8 @@ import Mapa.Lugar;
 public class Explosao extends Magia{
     private final int dano;
 
-    public Explosao(int dano) {
+    public Explosao(int custo, int dano) {
+        super(custo);
         this.dano = dano;
     }
     

@@ -11,8 +11,12 @@ import coliseumrpg.Poderes.TiposDeAlvo.Poder;
  *
  * @author Matheus
  */
-public class Especialidade {
-    String nome;
-    String descricao;
-    Poder[] poderes;
+public abstract class Especialidade {
+    protected String nome;
+    protected String descricao;
+    protected Poder[] poderes;
+    
+    public Poder[] getPoderes(){
+        return this.poderes;
+    }
 }

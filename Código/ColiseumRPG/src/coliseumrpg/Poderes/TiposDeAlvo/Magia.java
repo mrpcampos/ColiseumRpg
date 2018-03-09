@@ -10,5 +10,8 @@ package coliseumrpg.Poderes.TiposDeAlvo;
  * @author Matheus
  */
 public abstract class Magia extends Poder implements LocalAlvo{
-    int custo;
+    protected int custo;
+    protected Magia(int custo){
+        this.custo=custo;
+    }
 }

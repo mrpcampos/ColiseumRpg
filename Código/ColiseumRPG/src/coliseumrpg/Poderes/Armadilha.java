@@ -14,10 +14,20 @@ import Mapa.Lugar;
  * @author Matheus
  */
 public class Armadilha extends Poder implements LocalAlvo{
-    int quantidade;
+    protected int quantidade;
+    protected int alcance;
 
+    public Armadilha(int quantidade, int alcance) {
+        this.quantidade = quantidade;
+        this.alcance = alcance;
+    }
+    
+    
+    
     @Override
     public void usar(int distancia, Lugar alvo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(distancia<=alcance){
+            alvo.colocar(c);
+        }
     }
 }

@@ -13,9 +13,15 @@ import Mapa.Lugar;
  * @author Matheus
  */
 public class Cura extends Magia{
+    private int cura;
 
+    public Cura(int custo, int cura) {
+        super(custo);
+        this.cura = cura;
+    }
+    
     @Override
     public void usar(int distancia, Lugar alvo) {
-        
+        alvo.getPersonagem().curar(cura);
     }
 }
