@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classes;
+package Poderes.TiposDeAlvo;
 
-import coliseumrpg.Especialidade;
+import NetGames.Time;
+import coliseumrpg.Personagem;
 
 /**
  *
  * @author Matheus
  */
-public class Mago extends Especialidade{
-    protected int mana;
+public interface Colocavel {
+    public void destruir();
+    public Time getTime();
+    public void pisar(Personagem p);
 }

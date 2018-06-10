@@ -9,10 +9,10 @@ package Erros;
  *
  * @author Matheus
  */
-public class LocalJaPossuiEsseItemException extends RuntimeException {
+public class NenhumPersonagemNoQuadranteException extends RuntimeException{
 
-    public LocalJaPossuiEsseItemException(String msg) {
-        super(msg);
+    public NenhumPersonagemNoQuadranteException() {
+        super("Esse poder só pode ser usado em quadrantes ocupados por personagens.");
     }
     
 }

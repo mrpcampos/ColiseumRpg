@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coliseumrpg.Poderes.TiposDeAlvo;
+package Erros;
 
 /**
  *
  * @author Matheus
  */
-public abstract class Colocavel extends Poder {
-    protected int quantidade;
-    
+public class ErroTolo extends RuntimeException{
+
+    public ErroTolo(String message) {
+        super(message);
+    }
     
 }

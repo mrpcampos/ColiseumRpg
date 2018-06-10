@@ -5,9 +5,10 @@
  */
 package Mapa;
 
+import Classes.Cacador.Armadilha;
 import Erros.LocalJaPossuiEsseItemException;
 import Erros.LocalOcupadoException;
-import coliseumrpg.Poderes.TiposDeAlvo.Colocavel;
+import Poderes.TiposDeAlvo.Colocavel;
 import coliseumrpg.Personagem;
 import java.util.ArrayList;
 
@@ -16,48 +17,54 @@ import java.util.ArrayList;
  * @author Matheus
  */
 public class Lugar {
-    
+
     private Personagem ocupante;
-    private ArrayList<Colocavel> objetos;
+    private ArrayList<Colocavel> colocaveis;
 
     public Personagem getPersonagem() {
         return ocupante;
     }
 
     public void destruir() {
-        objetos.clear();
-    }
-    
-    public void passar(Personagem p) throws LocalOcupadoException{
-        if(verificaOcupado()){
-            throw new LocalOcupadoException();
-        }
-    }
-    
-    public void ocupar(Personagem p){
-        
-    }
-    
-    public void colocar(Colocavel c) throws LocalJaPossuiEsseItemException{
-        if(verificaOcupado() && verificaDisponobilidadeParaColocavel(c)){
-            objetos.add(c);
-            return;
-        }
-        throw new LocalJaPossuiEsseItemException();
-    }
-    
-    private boolean verificaOcupado(){
-        return ocupante!=null;
+        colocaveis.forEach(c -> c.destruir());
     }
 
-    private boolean verificaDisponobilidadeParaColocavel(Colocavel novo) {
+    public void ocupar(Personagem p) {
+        if (estaOcupado()) {
+            throw new LocalOcupadoException("Dois personagens nãp podem ocupar o mesmo quadrante no espaço ao mesmo tempo!");
+        }
+        for(Colocavel c: colocaveis){
+            c.pisar(p);
+        }
+        this.ocupante=p;
+    }
+    
+    public void desocupar(){
+        this.ocupante=null;
+    }
+
+    public void colocar(Colocavel c) throws LocalJaPossuiEsseItemException {
+        if (!estaOcupado() && !disponivelParaColocavel(c)) {
+            colocaveis.add(c);
+            return;
+        }
+        throw new LocalJaPossuiEsseItemException("Você ja colocou uma armadilha nesse quadrante.");
+    }
+
+    public boolean estaOcupado() {
+        return ocupante != null;
+    }
+
+    private boolean disponivelParaColocavel(Colocavel novo) {
         boolean b = true;
-        for(Colocavel c: objetos){
-            if (c.getClass().equals(novo.getClass())){
-                return false;
+        for (Colocavel c : colocaveis) {
+            if (c.getClass().equals(novo.getClass()) && c.getTime() == novo.getTime()) {
+                if (((Armadilha) c).estaFuncional()) {
+                    return false;
+                }
             }
         }
         return b;
     }
-    
+
 }

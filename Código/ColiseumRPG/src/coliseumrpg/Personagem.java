@@ -5,31 +5,36 @@
  */
 package coliseumrpg;
 
-/**
- *
- * @author Matheus
- */
-public class Personagem {
-    String nome;
-    private int velocidade;
+import NetGames.Time;
+import Poderes.TiposDeAlvo.Poder;
+
+public abstract class Personagem {
+    protected String descricao;
+    
     private final int vidaMaxima;
-    private int vidaAtual;
-    private int dano;
-    private int alcance;
+    protected int vidaAtual;
+    private final int velocidadeBase;
+    protected int velocidadeAtual;
+    protected int dano;
+    protected int alcance;
+    private final Time time;
     
-    private Especialidade especialidade;
+    protected Poder [] poderes;
     
-    public Personagem(String nome, int vida, int velocidade, int alcance, int dano) {
-        this.nome=nome;
+    private boolean vivo;
+    protected int tempoIncapacitado;
+    
+    public Personagem(int vida, int velocidade, int alcance, int dano, Time time) {
         this.vidaMaxima = vida;
-        this.vidaAtual=vida;
-        this.velocidade = velocidade;
+        this.vidaAtual = vida;
+        this.velocidadeBase = velocidade;
+        this.velocidadeAtual = velocidade;
         this.alcance = alcance;
         this.dano = dano;
-    }
-    
-    public void defineClasse(Especialidade especialidade){
-        this.especialidade=especialidade;
+        
+        this.time=time;
+        this.vivo=true;
+        this.tempoIncapacitado = 0;
     }
 
     public void receberDano(int dano){
@@ -39,16 +44,16 @@ public class Personagem {
         }
     }
 
-    public void atacar(){
-        
-    }
-    
-    private void declararMorte(){
-        //Insira código aqui
+    public int atacar(){
+        return this.dano;
     }
 
-    public String getNome() {
-        return nome;
+    private void declararMorte(){
+        vivo=false;
+    }
+
+    public boolean estaVivo() {
+        return vivo;
     }
 
     public int getVidaAtual() {
@@ -59,8 +64,12 @@ public class Personagem {
         return vidaMaxima;
     }
 
-    public Especialidade getEspecialidade() {
-        return especialidade;
+    public Time getTime() {
+        return time;
+    }
+
+    public Poder[] getPoderes() {
+        return poderes;
     }
     
     public void setDano(int dano){
@@ -77,4 +86,26 @@ public class Personagem {
             vidaAtual=vidaMaxima;
         }
     }
+
+    public int getVelocidade() {
+        return velocidadeAtual;
+    }
+
+    public int getDano() {
+        return dano;
+    }
+
+    public int getAlcance() {
+        return alcance;
+    }
+
+    public void incapacitar(int tempoDeIncapacitacao) {
+        this.tempoIncapacitado += tempoDeIncapacitacao;
+    }
+    
+    public void passarTempo(){
+        tempoIncapacitado--;
+        velocidadeAtual=velocidadeBase;
+    }
+
 }

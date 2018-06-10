@@ -9,9 +9,10 @@ package Erros;
  *
  * @author Matheus
  */
-public class LocalOcupadoException extends Exception {
+public class LocalOcupadoException extends RuntimeException {
 
-    public LocalOcupadoException() {
+    public LocalOcupadoException(String message) {
+        super(message);
     }
     
 }

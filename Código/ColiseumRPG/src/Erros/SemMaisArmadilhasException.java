@@ -9,10 +9,10 @@ package Erros;
  *
  * @author Matheus
  */
-public class LocalJaPossuiEsseItemException extends RuntimeException {
+public class SemMaisArmadilhasException extends RuntimeException{
 
-    public LocalJaPossuiEsseItemException(String msg) {
-        super(msg);
+    public SemMaisArmadilhasException(String erro) {
+        super(erro);
     }
     
 }

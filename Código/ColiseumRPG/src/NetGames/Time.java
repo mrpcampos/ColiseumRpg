@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classes;
-
-import coliseumrpg.Especialidade;
+package NetGames;
 
 /**
  *
  * @author Matheus
  */
-public class Guerreiro extends Especialidade{
-    
+public enum Time {
+    AZUL, VERMELHO, AMARELO, BRANCO, PRETO
 }

@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coliseumrpg.Poderes.TiposDeAlvo;
-
-import Mapa.Lugar;
+package Erros;
 
 /**
  *
  * @author Matheus
  */
-public interface LocalAlvo {
-        public abstract void usar(int distancia, Lugar alvo);
+public class ForaDoAlcanceException extends RuntimeException {
 
+    public ForaDoAlcanceException(String message) {
+        super(message);
+    }
+    
 }

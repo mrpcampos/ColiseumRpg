@@ -3,17 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coliseumrpg.Poderes.TiposDeAlvo;
+package Poderes.TiposDeAlvo;
+
+import java.util.function.Consumer;
 
 /**
  *
  * @author Matheus
  */
-public abstract class Poder {
+public class Poder {
     protected String nome;
     protected String descricao;
-    
-    
+
+    public Poder(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
     
     public String getNome() {
         return nome;

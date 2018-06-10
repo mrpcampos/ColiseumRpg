@@ -3,16 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coliseumrpg.Poderes.TiposDeAlvo;
+package Poderes.TiposDeAlvo;
 
 import Mapa.Lugar;
-import coliseumrpg.Personagem;
 
-/**
- *
- * @author Matheus
- */
-public interface AutoModificacao {
-        public abstract void usar(Personagem utilizador);
-
+public interface LocalAlvo{
+    public void usar(Lugar lugar);
+    public int getAlcance();
 }

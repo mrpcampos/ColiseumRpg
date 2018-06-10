@@ -10,14 +10,30 @@ package InterfaceVisual;
  * @author Matheus
  */
 public class ControladorTelas {
+
+    
     Janela janela;
     MenuInicial menuInicial;
     TelaEmJogo telaEmJogo;
     TelaFimDeJogo TelaFimDeJogo;
+    
+    private static ControladorTelas instance;
+    
+    public static ControladorTelas getInstance() {
+        return instance;
+    }
+    
+    private ControladorTelas() {
+        janela = new Janela();
+        telaEmJogo = new TelaEmJogo();
+        menuInicial= new MenuInicial();
+        TelaFimDeJogo = new TelaFimDeJogo();
+        
+    }
 
-    public ControladorTelas() {
-        this.janela = new Janela();
-        this.menuInicial = new MenuInicial();
+    public void abrirTelaInicial() {
+        janela.setContentPane(menuInicial);
+        janela.setVisible(true);
     }
     
     

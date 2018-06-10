@@ -5,7 +5,9 @@
  */
 package coliseumrpg;
 
+import NetGames.ControladorNetGames;
 import InterfaceVisual.ControladorTelas;
+import Mapa.Lugar;
 import Mapa.Mapa;
 
 /**
@@ -14,13 +16,15 @@ import Mapa.Mapa;
  */
 public class ColiseumRPG {
 
-    private ControladorTelas controladorTelas;
-    private ColiseumRPG instance;
-    private Mapa mapa;
-    private Personagem personagens[][];
+    protected ColiseumRPG instance;
+    protected ControladorTelas controladorTelas;
+    protected ControladorNetGames controladorNetGames;
+    /*Adicionar controlar netgames*/
     
-    private ColiseumRPG() {
-        controladorTelas = new ControladorTelas();
+    protected Mapa mapa;
+    
+    public ColiseumRPG() {
+        this.controladorTelas = ControladorTelas.getInstance();
     }
 
     public ColiseumRPG getInstance() {
@@ -31,7 +35,7 @@ public class ColiseumRPG {
     }
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        ControladorTelas.getInstance().abrirTelaInicial();
     }
 
 }

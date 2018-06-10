@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coliseumrpg.Poderes.TiposDeAlvo;
+package Erros;
 
 /**
  *
  * @author Matheus
  */
-public abstract class Magia extends Poder implements LocalAlvo{
-    protected int custo;
-    protected Magia(int custo){
-        this.custo=custo;
+public class UmPassoDeCadaVezException extends RuntimeException{
+
+    public UmPassoDeCadaVezException(String message) {
+        super(message);
     }
+    
 }
