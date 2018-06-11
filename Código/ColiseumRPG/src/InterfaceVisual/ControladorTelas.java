@@ -43,7 +43,7 @@ public class ControladorTelas {
         JOptionPane.showMessageDialog(getInstance().janela, mensagem, "Mensagem de Erro", JOptionPane.ERROR_MESSAGE);
     }
 
-    void começar(Time time, Classes class1, Classes class2) {
+    void comecar(Time time, Classes class1, Classes class2) {
         ColiseumRPG.getInstance().comecar(time, class1, class2);
     }
 
