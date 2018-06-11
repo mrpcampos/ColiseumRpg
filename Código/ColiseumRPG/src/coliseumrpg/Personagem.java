@@ -5,26 +5,33 @@
  */
 package coliseumrpg;
 
+import Classes.Classes;
 import NetGames.Time;
 import Poderes.TiposDeAlvo.Poder;
 
 public abstract class Personagem {
-    protected String descricao;
     
-    private final int vidaMaxima;
+    private final String nome;
+    private final String descricao;
+    protected Classes classe;
+    
+    private  int vidaMaxima;
     protected int vidaAtual;
-    private final int velocidadeBase;
+    private  int velocidadeBase;
     protected int velocidadeAtual;
     protected int dano;
     protected int alcance;
-    private final Time time;
+    private  Time time;
     
     protected Poder [] poderes;
     
     private boolean vivo;
     protected int tempoIncapacitado;
     
-    public Personagem(int vida, int velocidade, int alcance, int dano, Time time) {
+    public Personagem(String nome, String descricao, Classes classe, int vida, int velocidade, int alcance, int dano, Time time) {
+        this.nome=nome;
+        this.descricao=descricao;
+        this.classe=classe;
         this.vidaMaxima = vida;
         this.vidaAtual = vida;
         this.velocidadeBase = velocidade;
@@ -35,6 +42,17 @@ public abstract class Personagem {
         this.time=time;
         this.vivo=true;
         this.tempoIncapacitado = 0;
+    }
+    /**
+     * Serve apenas para testar se a classe é a que queremos. Não deve ser utilizada em jogo.
+     * @param nome
+     * @param descricao
+     * @param classe 
+     */
+    public Personagem(String nome, String descricao, Classes classe){
+        this.nome=nome;
+        this.descricao=descricao;
+        this.classe=classe;
     }
 
     public void receberDano(int dano){
@@ -91,10 +109,6 @@ public abstract class Personagem {
         return velocidadeAtual;
     }
 
-    public int getDano() {
-        return dano;
-    }
-
     public int getAlcance() {
         return alcance;
     }
@@ -108,4 +122,15 @@ public abstract class Personagem {
         velocidadeAtual=velocidadeBase;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+    
+    public boolean ehEssaClasse(Classes classeParaTestar){
+        return classeParaTestar.equals(classe);
+    }
 }

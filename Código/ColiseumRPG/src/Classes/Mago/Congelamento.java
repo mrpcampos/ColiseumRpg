@@ -14,18 +14,19 @@ import Mapa.Lugar;
  */
 public class Congelamento extends Magia{
 
-    public Congelamento(){
+    public Congelamento(Mago caster){
         super("Congelamento"
                 , "Criando cristais de gelo ao redor de seu inimigo,"
                         + " o mago é capaz de imobiliza-lo por uma rodada."
-                , 1, 2);
+                , 1, 2, caster);
     }
 
     @Override
     public void usar(Lugar alvo) {
-        //TODO verificação de custo de mana
+        temManaSuficiente(caster);
         if(alvo.getPersonagem()!=null){
             alvo.getPersonagem().incapacitar(1);
+            caster.gastarMana(custo);
         }else{
             throw new NenhumPersonagemNoQuadranteException();
         }

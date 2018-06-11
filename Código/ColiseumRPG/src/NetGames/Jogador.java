@@ -5,6 +5,7 @@
  */
 package NetGames;
 
+import coliseumrpg.Turno;
 import coliseumrpg.Personagem;
 
 /**
@@ -12,9 +13,9 @@ import coliseumrpg.Personagem;
  * @author Matheus
  */
 public class Jogador {
-    
+
     private final Time time;
-    private final Personagem personagens[];
+    private Personagem personagens[];
     private Turno turno;
 
     public Jogador(Time time, Personagem primeiroPersonagem, Personagem segundoPersonagem) {
@@ -24,29 +25,47 @@ public class Jogador {
         personagens[1] = segundoPersonagem;
     }
 
+    public Turno tomarVez() {
+        Personagem p;
+        if (this.turno == null) {
+            this.turno = new Turno(time, personagens[0]);
+        } else {
+            if (turno.getPersonagem() == personagens[0]) {
+                if (personagens[1].estaVivo()) {
+                    p = personagens[1];
+                } else {
+                    p = personagens[0];
+                }
+            } else {
+                if (personagens[0].estaVivo()) {
+                    p = personagens[0];
+                } else {
+                    p = personagens[1];
+                }
+            }
+            this.turno = new Turno(getTime(), p);
+        }
+        return turno;
+    }
+
     public Time getTime() {
         return time;
     }
-    
-    public void passarVez(){
-        this.turno.encerrar();
+
+    public Turno getTurno() {
+        return turno;
     }
-    
-    public void tomarVez(){
-        Personagem p;
-        if(turno.getPersonagem()==personagens[0]){
-            if(personagens[1].estaVivo()){
-                p=personagens[1];
-            } else{
-                p=personagens[0];
-            }
-        } else{
-            if(personagens[0].estaVivo()){
-                p=personagens[0];
-            }else{
-                p=personagens[1];
-            }
-        }
-        this.turno=new Turno(this, p);
+
+    public void setPersonagens(Personagem[] personagens) {
+        this.personagens = personagens;
     }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+
+    public Personagem[] getPersonagens() {
+        return personagens;
+    }
+
 }

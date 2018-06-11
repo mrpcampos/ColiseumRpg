@@ -5,6 +5,7 @@
  */
 package Classes.Mago;
 
+import Erros.OutOfManaException;
 import Mapa.Lugar;
 import Poderes.TiposDeAlvo.LocalAlvo;
 import Poderes.TiposDeAlvo.Poder;
@@ -16,10 +17,12 @@ import Poderes.TiposDeAlvo.Poder;
 public abstract class Magia extends Poder implements LocalAlvo{
     protected int custo;
     protected int alcance;
-    protected Magia(String nome, String descricao, int custo, int alcance){
+    protected Mago caster;
+    protected Magia(String nome, String descricao, int custo, int alcance, Mago caster){
         super(nome, descricao);
         this.custo=custo;
         this.alcance=alcance;
+        this.caster=caster;
     }
 
     @Override
@@ -27,4 +30,8 @@ public abstract class Magia extends Poder implements LocalAlvo{
         return this.alcance;
     }
     
+    protected void temManaSuficiente(Mago caster){
+        if(caster.getMana()<custo)
+            throw new OutOfManaException("Ops, parece que você não tem mais mana para usar essa habilidade.");
+    }
 }

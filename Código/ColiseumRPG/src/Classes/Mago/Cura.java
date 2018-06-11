@@ -15,10 +15,10 @@ import Mapa.Lugar;
 public class Cura extends Magia{
     private int cura;
 
-    public Cura(){
+    public Cura(Mago caster){
         super("Curar", "Usa as forças do mundo ao seu redor para restaurar"
                 + " o alvo da magia em 2 pontos de vida."
-                , 1, 2);
+                , 1, 2, caster);
         this.cura = 2;
     }
     
@@ -30,9 +30,10 @@ public class Cura extends Magia{
      */
     @Override
     public void usar(Lugar alvo) {
-        //TODO verificação de custo de mana
+        temManaSuficiente(caster);
         if(alvo.getPersonagem()!=null){
             alvo.getPersonagem().curar(cura);
+            caster.gastarMana(custo);
         }else{
             throw new NenhumPersonagemNoQuadranteException();
         }

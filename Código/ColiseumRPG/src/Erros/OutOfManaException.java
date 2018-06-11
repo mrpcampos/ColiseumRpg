@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NetGames;
+package Erros;
 
 /**
  *
  * @author Matheus
  */
-public enum Time {
-    PRETO, VERMELHO, AMARELO, AZUL, BRANCO 
+public class OutOfManaException extends RuntimeException{
+
+    public OutOfManaException(String message) {
+        super(message);
+    }
+    
 }

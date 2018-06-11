@@ -11,24 +11,25 @@ import Mapa.Lugar;
  *
  * @author Matheus
  */
-public class Explosao extends Magia{
+public class Explosao extends Magia {
+
     private final int dano;
 
-    public Explosao() {
+    public Explosao(Mago caster) {
         super("Explosão",
                 "Causa uma poderosa explosão de chamas no local,"
-                        + " causando bastante dano e destruindo"
-                        + " qualquer objeto no quadrante."
-                , 3, 3);
+                + " causando bastante dano e destruindo"
+                + " qualquer objeto no quadrante.",
+                 3, 3, caster);
         this.dano = 3;
     }
-    
-    
+
     @Override
     public void usar(Lugar alvo) {
-        //TODO verificação de distância e de custo de mana
+        temManaSuficiente(caster);
         alvo.getPersonagem().receberDano(dano);
         alvo.destruir();
+        caster.gastarMana(custo);
     }
 
 }

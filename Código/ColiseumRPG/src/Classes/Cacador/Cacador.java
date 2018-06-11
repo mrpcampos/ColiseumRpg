@@ -5,7 +5,7 @@
  */
 package Classes.Cacador;
 
-import Erros.SemMaisArmadilhasException;
+import Classes.Classes;
 import NetGames.Time;
 import coliseumrpg.Personagem;
 import Poderes.TiposDeAlvo.Poder;
@@ -17,12 +17,22 @@ import Poderes.TiposDeAlvo.Poder;
 public class Cacador extends Personagem {
 
     public Cacador(Time time) {
-        super(8, 3, 3, 1, time);
-        this.descricao = "Ágil e sorrateiro ele é habilidoso tanto com a faca quanto com o arco, mas cudiado!/nEle esconde armadilhas mortais";
+        super("Caçador", 
+                "Ágil e sorrateiro ele é habilidoso tanto com a faca"
+                        + " quanto com o arco.\nCuidado onde pisa, "
+                        + "ele esconde armadilhas mortais!", Classes.Cacador,
+                8, 3, 3, 1, time);
         poderes = new Poder[2];
         poderes[0] = new Armadilhas(time);
         poderes[1] = new Adaptavel();
 
+    }
+
+    public Cacador() {
+        super("Caçador", 
+                "Ágil e sorrateiro ele é habilidoso tanto com a faca"
+                        + " quanto com o arco.\nCuidado onde pisa, "
+                        + "ele esconde armadilhas mortais!", Classes.Cacador);
     }
 
 }
