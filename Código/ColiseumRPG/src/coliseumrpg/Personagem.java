@@ -7,7 +7,7 @@ package coliseumrpg;
 
 import Classes.Classes;
 import NetGames.Time;
-import Poderes.TiposDeAlvo.Poder;
+import Poderes.Poder;
 
 public abstract class Personagem {
     

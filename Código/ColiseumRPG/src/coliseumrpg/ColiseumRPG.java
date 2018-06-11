@@ -17,6 +17,9 @@ import Mapa.Mapa;
 import NetGames.Ato;
 import NetGames.Jogador;
 import NetGames.Time;
+import Poderes.Poder;
+import Poderes.TipoDePoderes.AutoModificacao;
+import Poderes.TipoDePoderes.LocalAlvo;
 import javafx.geometry.Dimension2D;
 
 /**
@@ -123,5 +126,17 @@ public class ColiseumRPG {
 
     public void mover(Dimension2D destino) {
         mapa.andar(turno.getPersonagem(), destino);
+    }
+
+    public Poder[] getPoderesPersonagemDoTurno() {
+        return turno.getPersonagem().getPoderes();
+    }
+
+    public void usarPoderLocalAlvo(LocalAlvo poder, Dimension2D destino) {
+        mapa.poderLocalAlvo(mapa.getPosicaoPersonagem(turno.getPersonagem()), poder, destino);
+    }
+
+    public void usarPoderAutoModificacao(AutoModificacao autoModificacao) {
+        autoModificacao.usar(turno.getPersonagem());
     }
 }

@@ -8,7 +8,7 @@ package Classes.Mago;
 import Classes.Classes;
 import NetGames.Time;
 import coliseumrpg.Personagem;
-import Poderes.TiposDeAlvo.Poder;
+import Poderes.Poder;
 
 /**
  *

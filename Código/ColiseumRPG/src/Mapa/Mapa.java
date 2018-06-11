@@ -9,7 +9,7 @@ import Erros.ErroTolo;
 import Erros.ForaDoAlcanceException;
 import Erros.UmPassoDeCadaVezException;
 import NetGames.Time;
-import Poderes.TiposDeAlvo.LocalAlvo;
+import Poderes.TipoDePoderes.LocalAlvo;
 import coliseumrpg.Personagem;
 import java.util.HashMap;
 import javafx.geometry.Dimension2D;

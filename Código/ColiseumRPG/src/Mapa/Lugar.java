@@ -8,7 +8,7 @@ package Mapa;
 import Classes.Cacador.Armadilha;
 import Erros.LocalJaPossuiEsseItemException;
 import Erros.LocalOcupadoException;
-import Poderes.TiposDeAlvo.Colocavel;
+import Poderes.TipoDePoderes.Colocavel;
 import coliseumrpg.Personagem;
 import java.util.ArrayList;
 

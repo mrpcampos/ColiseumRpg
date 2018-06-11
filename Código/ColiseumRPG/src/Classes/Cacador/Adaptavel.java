@@ -6,8 +6,8 @@
 package Classes.Cacador;
 
 import coliseumrpg.Personagem;
-import Poderes.TiposDeAlvo.AutoModificacao;
-import Poderes.TiposDeAlvo.Poder;
+import Poderes.TipoDePoderes.AutoModificacao;
+import Poderes.Poder;
 
 /**
  *

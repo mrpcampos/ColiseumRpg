@@ -6,7 +6,7 @@
 package Classes.Cacador;
 
 import NetGames.Time;
-import Poderes.TiposDeAlvo.Colocavel;
+import Poderes.TipoDePoderes.Colocavel;
 import coliseumrpg.Personagem;
 
 /**

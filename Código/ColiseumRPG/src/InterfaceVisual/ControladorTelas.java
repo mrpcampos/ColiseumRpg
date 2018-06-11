@@ -8,7 +8,11 @@ package InterfaceVisual;
 import Classes.Classes;
 import javax.swing.JOptionPane;
 import NetGames.Time;
+import Poderes.Poder;
+import Poderes.TipoDePoderes.AutoModificacao;
+import Poderes.TipoDePoderes.LocalAlvo;
 import coliseumrpg.ColiseumRPG;
+import coliseumrpg.Personagem;
 import javafx.geometry.Dimension2D;
 
 /**
@@ -66,6 +70,26 @@ public class ControladorTelas {
             ColiseumRPG.getInstance().atacar(destino);
         } catch (RuntimeException e) {
             errorDialog(e.getMessage());
+        }
+    }
+
+    public Poder[] getPoderesPersonagemDoTurno() {
+        return ColiseumRPG.getInstance().getPoderesPersonagemDoTurno();
+    }
+
+    public void usarPoderLocalAlvo(LocalAlvo poder, Dimension2D destino) {
+        try{
+            ColiseumRPG.getInstance().usarPoderLocalAlvo(poder, destino);
+        }catch(RuntimeException err){
+            errorDialog(err.getMessage());
+        }
+    }
+
+    void usarPoderAutoModificacao(AutoModificacao autoModificacao) {
+        try{
+            ColiseumRPG.getInstance().usarPoderAutoModificacao(autoModificacao);
+        }catch(RuntimeException err){
+            errorDialog(err.getMessage());
         }
     }
 

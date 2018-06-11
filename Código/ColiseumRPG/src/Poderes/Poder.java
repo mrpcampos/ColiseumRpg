@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Poderes.TiposDeAlvo;
+package Poderes;
 
 import java.util.function.Consumer;
 

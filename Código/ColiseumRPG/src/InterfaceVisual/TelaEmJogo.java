@@ -5,11 +5,18 @@
  */
 package InterfaceVisual;
 
+import Poderes.Poder;
+import Poderes.TipoDePoderes.AutoModificacao;
+import Poderes.TipoDePoderes.LocalAlvo;
+import coliseumrpg.Personagem;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javafx.geometry.Dimension2D;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 
 /**
@@ -24,6 +31,12 @@ public class TelaEmJogo extends javax.swing.JPanel {
         ControladorTelas.errorDialog("Selecione uma ação no meu lateral primeiro.");
     };
     ActionListener mapButtonsListener = mapButtonsDefaulListener;
+    AbstractAction mapsButtonsAction = new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mapButtonsListener.actionPerformed(e);
+        }
+    };
 
     public TelaEmJogo() {
         preInit();
@@ -52,7 +65,7 @@ public class TelaEmJogo extends javax.swing.JPanel {
                 posicaoBotoes.put(btn, new Dimension2D(i, j));
                 btn.setSize(dimension);
                 btn.setMinimumSize(dimension);
-                btn.addActionListener(mapButtonsListener);
+                btn.setAction(mapsButtonsAction);
                 panelMap.add(btn);
                 localButtons[i][j] = btn;
             }
@@ -75,7 +88,7 @@ public class TelaEmJogo extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        lblTurno = new javax.swing.JButton();
         panelSeusPersonagens = new javax.swing.JPanel();
         lblVoce = new javax.swing.JLabel();
         prograssBar1Voce = new javax.swing.JProgressBar();
@@ -114,6 +127,11 @@ public class TelaEmJogo extends javax.swing.JPanel {
         });
 
         btnEspecialidade.setText("Especialidade");
+        btnEspecialidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecialidadeActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("jButton1");
 
@@ -145,7 +163,7 @@ public class TelaEmJogo extends javax.swing.JPanel {
                 .addGap(23, 23, 23))
         );
 
-        jButton4.setText("Turno");
+        lblTurno.setText("Turno");
 
         javax.swing.GroupLayout panelMenuEscolhasLayout = new javax.swing.GroupLayout(panelMenuEscolhas);
         panelMenuEscolhas.setLayout(panelMenuEscolhasLayout);
@@ -156,7 +174,7 @@ public class TelaEmJogo extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuEscolhasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMenuEscolhasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAtacar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEspecialidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMover, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -175,7 +193,7 @@ public class TelaEmJogo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -314,7 +332,6 @@ public class TelaEmJogo extends javax.swing.JPanel {
     }//GEN-END:initComponents
 
     private void btnMoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoverActionPerformed
-        // TODO add your handling code here:
         if (mapButtonsListener == mapButtonsDefaulListener) {
             mapButtonsListener = event -> {
                 ControladorTelas.getInstance().mover(posicaoBotoes.get((JButton) event.getSource()));
@@ -336,6 +353,36 @@ public class TelaEmJogo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAtacarActionPerformed
 
+    private void btnEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialidadeActionPerformed
+        Poder[] poderes = ControladorTelas.getInstance().getPoderesPersonagemDoTurno();
+        panelMenuRotativo.removeAll();
+        for (Poder poder : poderes) {
+            JButton btn = new JButton(poder.getNome());
+            btn.setToolTipText(poder.getDescricao());
+            if (poder instanceof LocalAlvo) {
+                ActionListener poderLocalAlvoListener = poderLocalAlvoEvent -> {
+                    if (mapButtonsListener == mapButtonsDefaulListener) {
+                        mapButtonsListener = mapButtonEvent -> {
+                            ControladorTelas.getInstance().usarPoderLocalAlvo((LocalAlvo) poder, posicaoBotoes.get((JButton) mapButtonEvent.getSource()));
+                            mapButtonsListener = mapButtonsDefaulListener;
+                        };
+                    } else {
+                        mapButtonsListener = mapButtonsDefaulListener;
+                    }
+                };
+                btn.addActionListener(poderLocalAlvoListener);;
+            } else if (poder instanceof AutoModificacao) {
+                ActionListener poderAutoModificacaoListener = poderLocalAlvoEvent -> {
+                    ControladorTelas.getInstance().usarPoderAutoModificacao((AutoModificacao) poder);
+                };
+                btn.addActionListener(poderAutoModificacaoListener);
+            } else {
+                throw new RuntimeException("O poder " + poder.getNome() + " não tem interface definida em TelaEmJogo, caso ja tenha essa interface criada basta adiciona-la na lista com o instanceof e implementar a forma de usa-lo.");
+            }
+            panelMenuRotativo.add(btn);
+        }
+    }//GEN-LAST:event_btnEspecialidadeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtacar;
@@ -344,13 +391,13 @@ public class TelaEmJogo extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblAdversario;
     private javax.swing.JLabel lblPersonagem1Adversario;
     private javax.swing.JLabel lblPersonagem1Voce;
     private javax.swing.JLabel lblPersonagem2Adversario;
     private javax.swing.JLabel lblPersonagem2Voce;
+    private javax.swing.JButton lblTurno;
     private javax.swing.JLabel lblVoce;
     private javax.swing.JPanel panelMap;
     private javax.swing.JPanel panelMenuEscolhas;

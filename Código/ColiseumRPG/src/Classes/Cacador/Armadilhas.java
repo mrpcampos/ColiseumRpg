@@ -7,8 +7,8 @@ package Classes.Cacador;
 
 import Erros.LocalJaPossuiEsseItemException;
 import Erros.SemMaisArmadilhasException;
-import Poderes.TiposDeAlvo.Poder;
-import Poderes.TiposDeAlvo.LocalAlvo;
+import Poderes.Poder;
+import Poderes.TipoDePoderes.LocalAlvo;
 import Mapa.Lugar;
 import NetGames.Time;
 

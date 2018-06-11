@@ -7,8 +7,8 @@ package Classes.Mago;
 
 import Erros.OutOfManaException;
 import Mapa.Lugar;
-import Poderes.TiposDeAlvo.LocalAlvo;
-import Poderes.TiposDeAlvo.Poder;
+import Poderes.TipoDePoderes.LocalAlvo;
+import Poderes.Poder;
 
 /**
  *

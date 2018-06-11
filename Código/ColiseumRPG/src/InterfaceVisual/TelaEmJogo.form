@@ -91,7 +91,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton4" max="32767" attributes="0"/>
+                      <Component id="lblTurno" max="32767" attributes="0"/>
                       <Component id="btnAtacar" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnEspecialidade" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnMover" alignment="0" max="32767" attributes="0"/>
@@ -113,7 +113,7 @@
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEspecialidade" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="lblTurno" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -142,6 +142,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Especialidade"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEspecialidadeActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="panelMenuRotativo">
 
@@ -191,7 +194,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="lblTurno">
           <Properties>
             <Property name="text" type="java.lang.String" value="Turno"/>
           </Properties>

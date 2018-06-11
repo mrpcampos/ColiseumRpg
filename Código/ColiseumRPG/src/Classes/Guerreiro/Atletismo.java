@@ -5,8 +5,8 @@
  */
 package Classes.Guerreiro;
 
-import Poderes.TiposDeAlvo.Poder;
-import Poderes.TiposDeAlvo.AutoModificacao;
+import Poderes.Poder;
+import Poderes.TipoDePoderes.AutoModificacao;
 import coliseumrpg.Personagem;
 
 /**
