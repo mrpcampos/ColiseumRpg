@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfaceVisual;
 
 import Classes.Classes;
@@ -12,19 +7,14 @@ import Poderes.Poder;
 import Poderes.TipoDePoderes.AutoModificacao;
 import Poderes.TipoDePoderes.LocalAlvo;
 import coliseumrpg.ColiseumRPG;
-import coliseumrpg.Personagem;
 import javafx.geometry.Dimension2D;
 
-/**
- *
- * @author Matheus
- */
 public class ControladorTelas {
 
-    private Janela janela;
-    private MenuInicial menuInicial;
-    private TelaEmJogo telaEmJogo;
-    private TelaFimDeJogo TelaFimDeJogo;
+    private final Janela janela;
+    private final MenuInicial menuInicial;
+    private final TelaEmJogo telaEmJogo;
+    private final TelaFimDeJogo TelaFimDeJogo;
 
     private static final ControladorTelas instance = new ControladorTelas();
 

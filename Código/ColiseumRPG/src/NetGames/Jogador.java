@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package NetGames;
 
 import coliseumrpg.Turno;
 import coliseumrpg.Personagem;
 
-/**
- *
- * @author Matheus
- */
 public class Jogador {
 
     private final Time time;
