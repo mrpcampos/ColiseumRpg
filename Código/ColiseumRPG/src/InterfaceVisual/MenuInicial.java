@@ -177,7 +177,7 @@ public class MenuInicial extends javax.swing.JPanel {
             ControladorTelas.errorDialog("Selecione duas classes para jogar.");
             return;
         }
-        ControladorTelas.getInstance().começar(Time.valueOf(selectedButtonText), Classes.valueOf(selectedIndices.get(0)), Classes.valueOf(selectedIndices.get(1)));
+        ControladorTelas.getInstance().comecar(Time.valueOf(selectedButtonText), Classes.valueOf(selectedIndices.get(0)), Classes.valueOf(selectedIndices.get(1)));
     }//GEN-LAST:event_btnConectarActionPerformed
     
     public String getSelectedButtonText(ButtonGroup buttonGroup) {
