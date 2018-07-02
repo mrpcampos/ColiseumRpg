@@ -41,11 +41,6 @@ public class MenuInicial extends javax.swing.JPanel {
         lblTitulo = new javax.swing.JLabel();
         btnConectar = new javax.swing.JButton();
         lblEscolhaClasse = new javax.swing.JLabel();
-        lblEscolhaTime = new javax.swing.JLabel();
-        radioVermelho = new javax.swing.JRadioButton();
-        radioAmarelo = new javax.swing.JRadioButton();
-        radioAzul = new javax.swing.JRadioButton();
-        radioBranco = new javax.swing.JRadioButton();
         labelComoSelecionar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEscolherClasses = new javax.swing.JList<>();
@@ -73,26 +68,6 @@ public class MenuInicial extends javax.swing.JPanel {
         lblEscolhaClasse.setText("Escolha duas classes para seus personagens:");
         lblEscolhaClasse.setAlignmentX(0.5F);
 
-        lblEscolhaTime.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblEscolhaTime.setText("Escolha a cor de seu time:");
-        lblEscolhaTime.setAlignmentX(0.5F);
-
-        radioGroup.add(radioVermelho);
-        radioVermelho.setText(Time.VERMELHO.toString());
-        radioVermelho.setAlignmentX(0.5F);
-
-        radioGroup.add(radioAmarelo);
-        radioAmarelo.setText(Time.AMARELO.toString());
-        radioAmarelo.setAlignmentX(0.5F);
-
-        radioGroup.add(radioAzul);
-        radioAzul.setText(Time.AZUL.toString());
-        radioAzul.setAlignmentX(0.5F);
-
-        radioGroup.add(radioBranco);
-        radioBranco.setText(Time.BRANCO.toString());
-        radioBranco.setAlignmentX(0.5F);
-
         labelComoSelecionar.setText("*Segure ctrl para selecionar duas ao mesmo tempo.");
         labelComoSelecionar.setAlignmentX(0.5F);
 
@@ -111,66 +86,43 @@ public class MenuInicial extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(136, 136, 136)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelComoSelecionar)
-                        .addComponent(jScrollPane1)
-                        .addComponent(lblEscolhaClasse))
-                    .addComponent(lblEscolhaTime)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioVermelho)
-                        .addGap(59, 59, 59)
-                        .addComponent(radioAmarelo)
-                        .addGap(63, 63, 63)
-                        .addComponent(radioAzul)
-                        .addGap(62, 62, 62)
-                        .addComponent(radioBranco)))
+                    .addComponent(labelComoSelecionar)
+                    .addComponent(jScrollPane1)
+                    .addComponent(lblEscolhaClasse))
                 .addGap(121, 121, 121))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 160, Short.MAX_VALUE)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(200, 200, 200))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(307, 307, 307)
                 .addComponent(btnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(330, 330, 330))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(lblEscolhaTime)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioVermelho)
-                    .addComponent(radioAmarelo)
-                    .addComponent(radioAzul)
-                    .addComponent(radioBranco))
-                .addGap(35, 35, 35)
+                .addGap(46, 46, 46)
                 .addComponent(lblEscolhaClasse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(labelComoSelecionar)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(btnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
     }//GEN-END:initComponents
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
-        if (radioGroup.getSelection() == null) {
-            ControladorTelas.errorDialog("Selecione um time para fazer parte.");
-            return;
-        }
-        String selectedButtonText = getSelectedButtonText(radioGroup);
         List<String> selectedIndices = listaEscolherClasses.getSelectedValuesList();
         if (selectedIndices.size() != 2) {
             ControladorTelas.errorDialog("Selecione duas classes para jogar.");
             return;
         }
-        ControladorTelas.getInstance().comecar(Time.valueOf(selectedButtonText), Classes.valueOf(selectedIndices.get(0)), Classes.valueOf(selectedIndices.get(1)));
+        ControladorTelas.getInstance().comecar(Classes.valueOf(selectedIndices.get(0)), Classes.valueOf(selectedIndices.get(1)));
     }//GEN-LAST:event_btnConectarActionPerformed
 
     public String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -190,13 +142,8 @@ public class MenuInicial extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelComoSelecionar;
     private javax.swing.JLabel lblEscolhaClasse;
-    private javax.swing.JLabel lblEscolhaTime;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList<String> listaEscolherClasses;
-    private javax.swing.JRadioButton radioAmarelo;
-    private javax.swing.JRadioButton radioAzul;
-    private javax.swing.JRadioButton radioBranco;
     private javax.swing.ButtonGroup radioGroup;
-    private javax.swing.JRadioButton radioVermelho;
     // End of variables declaration//GEN-END:variables
 }

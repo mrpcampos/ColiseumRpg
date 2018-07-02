@@ -8,8 +8,9 @@ package coliseumrpg;
 import Classes.Classes;
 import NetGames.Time;
 import Poderes.Poder;
+import java.io.Serializable;
 
-public abstract class Personagem {
+public abstract class Personagem implements Serializable {
 
     private final String nome;
     private final String descricao;
@@ -24,14 +25,14 @@ public abstract class Personagem {
     protected int velocidadeAtual;
     protected int dano;
     protected int alcance;
-    private Time time;
+    protected Time time;
 
     protected Poder[] poderes;
 
     private boolean vivo;
     protected int tempoIncapacitado;
 
-    public Personagem(String nome, String descricao, Classes classe, int vida, int velocidade, int alcance, int dano, Time time, String caminhoIconeVivo, String caminhoIconeMorto) {
+    public Personagem(String nome, String descricao, Classes classe, int vida, int velocidade, int alcance, int dano, String caminhoIconeVivo, String caminhoIconeMorto) {
         this.nome = nome;
         this.descricao = descricao;
         this.classe = classe;
@@ -45,23 +46,8 @@ public abstract class Personagem {
         this.caminhoIconeMorto = caminhoIconeMorto;
         this.caminhoIconeVivo = caminhoIconeVivo;
 
-        this.time = time;
         this.vivo = true;
         this.tempoIncapacitado = 0;
-    }
-
-    /**
-     * Serve apenas para testar se a classe é a que queremos. Não deve ser
-     * utilizada em jogo.
-     *
-     * @param nome
-     * @param descricao
-     * @param classe
-     */
-    public Personagem(String nome, String descricao, Classes classe) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.classe = classe;
     }
 
     public void receberDano(int dano) {
@@ -83,8 +69,12 @@ public abstract class Personagem {
         return vivo;
     }
 
-    public int getPorcentagemVidaAtual() {
-        return (int)(( ((float)vidaAtual) /((float)vidaMaxima) )*100);
+    public boolean estaIncapacitado() {
+        return tempoIncapacitado != 0;
+    }
+
+    public int getPercentualVidaAtual() {
+        return (int) ((((float) vidaAtual) / ((float) vidaMaxima)) * 100);
     }
 
     public int getVidaMaxima() {
@@ -131,12 +121,18 @@ public abstract class Personagem {
     }
 
     public void passarTempo() {
-        tempoIncapacitado--;
         velocidadeAtual = velocidadeBase;
+        if (tempoIncapacitado > 0) {
+            tempoIncapacitado--;
+        }
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public Classes getClasse() {
+        return classe;
     }
 
     public String getDescricao() {
@@ -150,8 +146,33 @@ public abstract class Personagem {
     public String getIcone() {
         if (estaVivo()) {
             return caminhoIconeVivo;
-        }else{
+        } else {
             return this.caminhoIconeMorto;
         }
+    }
+
+    void gastarVelocidade() {
+        velocidadeAtual--;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null) {
+            Personagem tmp = ((Personagem) obj);
+            if (tmp.getTime().equals(getTime())) {
+                if (tmp.ehEssaClasse(getClasse())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        result += 100 * time.ordinal();
+        result += 1 * classe.ordinal();
+        return result;
     }
 }

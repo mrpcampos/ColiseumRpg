@@ -24,6 +24,8 @@ public interface Colocavel {
 
     public boolean estaFuncional();
 
+    public String getDescricao();
+    
     /**
      * Criado para informar as regras de visualização do item.
      *

@@ -20,15 +20,14 @@ public final class Armadilhas extends PoderLocalAlvo {
     protected int quantidade;
     protected int alcance;
 
-    private final Time time;
+    private Time time;
 
-    public Armadilhas(Time time) {
+    public Armadilhas() {
         super("Armadilhas", "Com seu pensamento estratégico e mãos precisas"
                 + " consegue montar uma armadilha invisível para os inimigos,"
                 + " que causará 2 de dano ao inimigo que cair nela", new Custo[]{Custo.AtoMenor});
         this.quantidade = 3;
         this.alcance = 2;
-        this.time = time;
     }
 
     /**
@@ -49,6 +48,10 @@ public final class Armadilhas extends PoderLocalAlvo {
     @Override
     public int getAlcance() {
         return this.alcance;
+    }
+
+    public void setTime(Time time) {
+        this.time=time;
     }
 
 }

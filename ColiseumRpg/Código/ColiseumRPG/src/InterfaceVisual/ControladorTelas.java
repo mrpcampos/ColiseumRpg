@@ -1,6 +1,7 @@
 package InterfaceVisual;
 
 import Classes.Classes;
+import Mapa.Lugar;
 import NetGames.Ato;
 import javax.swing.JOptionPane;
 import NetGames.Time;
@@ -8,8 +9,11 @@ import Poderes.Poder;
 import Poderes.TipoDePoderes.PoderAutoModificacao;
 import Poderes.TipoDePoderes.PoderLocalAlvo;
 import coliseumrpg.ColiseumRPG;
+import coliseumrpg.Personagem;
 import coliseumrpg.Turno;
-import javafx.geometry.Dimension2D;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.util.HashMap;
 
 public class ControladorTelas {
 
@@ -17,10 +21,17 @@ public class ControladorTelas {
     private final MenuInicial menuInicial;
     private final TelaEmJogo telaEmJogo;
     private final TelaFimDeJogo telaFimDeJogo;
+    
+    private static final String MENU_INICIAL = "MENU_INICIAL";
+    private static final String TELA_EM_JOGO = "TELA_EM_JOGO";
+    private static final String TELA_FIM_DE_JOGO = "TELA_FIM_DE_JOGO";
 
-    private static final ControladorTelas instance = new ControladorTelas();
+    private static ControladorTelas instance ;
 
     public static ControladorTelas getInstance() {
+        if(instance == null){
+            instance = new ControladorTelas();
+        }
         return instance;
     }
 
@@ -29,27 +40,44 @@ public class ControladorTelas {
         telaEmJogo = new TelaEmJogo();
         menuInicial = new MenuInicial();
         telaFimDeJogo = new TelaFimDeJogo();
+        janela.getContentPane().add(MENU_INICIAL, menuInicial);
+        janela.getContentPane().add(TELA_EM_JOGO, telaEmJogo);
+        janela.getContentPane().add(TELA_FIM_DE_JOGO, telaFimDeJogo);
     }
 
     public void abrirTelaInicial() {
-        janela.setContentPane(menuInicial);
         janela.setVisible(true);
+        janela.menuSuperiorVisivel(false);
+        ((CardLayout) (janela.getContentPane().getLayout())).show(janela.getContentPane(), MENU_INICIAL);
+        janela.pack();
     }
 
-    public void abrirTelaEmJogo() {
-        janela.setContentPane(telaEmJogo);
-        janela.setVisible(true);
+    public void abrirTelaEmJogo(HashMap<Dimension, Lugar> locaisAlterados, HashMap<Personagem, Lugar> posicaoPersonagens, Time timeDoJogadorLocal) {
+        janela.menuSuperiorVisivel(true);
+        ((CardLayout) (janela.getContentPane().getLayout())).show(janela.getContentPane(), TELA_EM_JOGO);
+        janela.pack();
+        telaEmJogo.atualizaMapa(locaisAlterados, posicaoPersonagens, timeDoJogadorLocal);
+    }
+
+    public void abrirTelaFimDeJogo() {
+        janela.menuSuperiorVisivel(false);
+        ((CardLayout) (janela.getContentPane().getLayout())).show(janela.getContentPane(), TELA_FIM_DE_JOGO);
+        janela.pack();
     }
 
     public static void errorDialog(String mensagem) {
         JOptionPane.showMessageDialog(getInstance().janela, mensagem, "Mensagem de Erro", JOptionPane.ERROR_MESSAGE);
     }
 
-    void comecar(Time time, Classes class1, Classes class2) {
-        ColiseumRPG.getInstance().comecar(time, class1, class2);
+    public static void infoDialog(String mensagem) {
+        JOptionPane.showMessageDialog(getInstance().janela, mensagem, "Mensagem de Erro", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    void mover(Dimension2D destino) {
+    void comecar( Classes class1, Classes class2) {
+        ColiseumRPG.getInstance().comecar(class1, class2);
+    }
+
+    void mover(Dimension destino) {
         try {
             ColiseumRPG.getInstance().mover(destino);
         } catch (RuntimeException e) {
@@ -57,7 +85,7 @@ public class ControladorTelas {
         }
     }
 
-    void atacar(Dimension2D destino) {
+    void atacar(Dimension destino) {
         try {
             ColiseumRPG.getInstance().atacar(destino);
         } catch (RuntimeException e) {
@@ -74,10 +102,15 @@ public class ControladorTelas {
     }
 
     Poder[] getPoderesPersonagemDoTurno() {
-        return ColiseumRPG.getInstance().getPoderesPersonagemDoTurno();
+        try {
+            return ColiseumRPG.getInstance().getPoderesPersonagemDoTurno();
+        } catch (RuntimeException e) {
+            errorDialog(e.getMessage());
+        }
+        return null;
     }
 
-    void usarPoderLocalAlvo(PoderLocalAlvo poder, Dimension2D destino) {
+    void usarPoderLocalAlvo(PoderLocalAlvo poder, Dimension destino) {
         try {
             ColiseumRPG.getInstance().usarPoderLocalAlvo(poder, destino);
         } catch (RuntimeException err) {
@@ -101,19 +134,23 @@ public class ControladorTelas {
         }
     }
 
-    public void abrirTelaFimDeJogo() {
-        janela.setContentPane(telaFimDeJogo);
+    public void mostrarResultadoAto(Ato ato, Time timeDoJogadorLocal) {
+        telaEmJogo.atualizaTela(ato, timeDoJogadorLocal);
     }
 
-    public void mostrarResultadoAto(Ato ato) {
-        telaEmJogo.atualizaTela(ato);
+    public void atualizaInformacoesTurno(Turno turno,  Time timeDoJogadorLocal) {
+        telaEmJogo.atualizaTurno(turno, timeDoJogadorLocal);
     }
-
-    public void mostrarNovoTurno(Turno turno) {
-        telaEmJogo.atualizaTurno(turno);
+    
+    public void atualizaMapa(HashMap<Dimension, Lugar> locaisAlterados, HashMap<Personagem, Lugar> posicaoPersonagens, Time timeJogadorLocal){
+        telaEmJogo.atualizaMapa(locaisAlterados, posicaoPersonagens, timeJogadorLocal);
+    }
+    
+    public void atualizaBotoesEspecialidades(Poder [] poderes){
+        telaEmJogo.atualizaBotoesPoderes(poderes);
     }
 
     public void setClassesJogadores(String pers1Jog1, String pers2Jog1, String pers1Jog2, String pers2Jog2) {
-        telaEmJogo.setClassesPersonagensJogadores(pers1Jog1, pers2Jog1, pers1Jog2,pers2Jog2);
+        telaEmJogo.setClassesPersonagensJogadores(pers1Jog1, pers2Jog1, pers1Jog2, pers2Jog2);
     }
 }

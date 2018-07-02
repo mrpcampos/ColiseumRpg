@@ -6,12 +6,13 @@
 package Poderes;
 
 import Poderes.TipoDePoderes.Custo;
+import java.io.Serializable;
 
 /**
  *
  * @author Matheus
  */
-public class Poder {
+public class Poder implements Serializable{
 
     protected String nome;
     protected String descricao;
@@ -33,6 +34,30 @@ public class Poder {
 
     public Custo[] getCustos() {
         return custos;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj!=null){
+            Poder tmp = (Poder) obj;
+            if(tmp.getNome().equals(getNome())){
+                if(tmp.getDescricao().equals(getDescricao())){
+                    if(tmp.getCustos().equals(getCustos())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode(){
+        int result = 67;
+        result = 3 * result + nome.hashCode();
+        result = 3 * result + descricao.hashCode();
+        result = 3 * result + custos.hashCode();
+        return result;
     }
 
 }

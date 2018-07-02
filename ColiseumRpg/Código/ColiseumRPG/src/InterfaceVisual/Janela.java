@@ -7,6 +7,7 @@ package InterfaceVisual;
 
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JMenu;
 
 /**
  *
@@ -22,6 +23,10 @@ public class Janela extends javax.swing.JFrame {
         postInit();
     }
 
+    void menuSuperiorVisivel(boolean visibilidade){
+        barraMenuSuperior.setVisible(visibilidade);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,38 +34,26 @@ public class Janela extends javax.swing.JFrame {
      */
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        barraMenuSuperior = new javax.swing.JMenuBar();
+        menuOptionDesistir = new javax.swing.JMenu();
+        menuItemDesistir = new javax.swing.JMenuItem();
 
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 550));
+        setMinimumSize(null);
         setResizable(false);
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        jMenu3.setText("Jogo");
-        jMenuBar1.add(jMenu3);
+        menuOptionDesistir.setText("Desistir");
 
-        jMenu4.setText("Desistir");
-        jMenuBar1.add(jMenu4);
+        menuItemDesistir.setText("Desistir");
+        menuOptionDesistir.add(menuItemDesistir);
 
-        setJMenuBar(jMenuBar1);
+        barraMenuSuperior.add(menuOptionDesistir);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
-        );
+        setJMenuBar(barraMenuSuperior);
 
         pack();
     }//GEN-END:initComponents
@@ -69,11 +62,10 @@ public class Janela extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar barraMenuSuperior;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem menuItemDesistir;
+    private javax.swing.JMenu menuOptionDesistir;
     // End of variables declaration//GEN-END:variables
 
     private void postInit() {
@@ -82,5 +74,8 @@ public class Janela extends javax.swing.JFrame {
         } catch (IOException ignored) {
             System.out.println("Icone da janela não encontrado.");
         }
+        menuItemDesistir.addActionListener(evt ->{
+            ControladorTelas.getInstance().desistir();
+        });
     }
 }

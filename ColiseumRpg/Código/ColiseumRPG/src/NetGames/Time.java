@@ -11,4 +11,5 @@ package NetGames;
  */
 public enum Time {
     PRETO, VERMELHO, AMARELO, AZUL, BRANCO
+    
 }

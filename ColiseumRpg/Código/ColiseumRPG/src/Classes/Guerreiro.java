@@ -5,10 +5,9 @@
  */
 package Classes;
 
-import Classes.Classes;
-import NetGames.Time;
+import Poderes.Atletismo;
+import Poderes.Poder;
 import coliseumrpg.Personagem;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -16,23 +15,14 @@ import javax.swing.ImageIcon;
  */
 public class Guerreiro extends Personagem {
 
-    private Guerreiro(int vida, int velocidade, int alcance, int dano, Time time) {
-        super("Guerreiro", "Treinado para batalha e em excelente forma física, "
-                + "o guerreiro é extremamente ágil e forte. Possui uma poderosa"
-                + " espada capaz de matar seus inimigos com poucos golpes,"
-                + " mas terá que alcança-los primeiro.", Classes.Guerreiro,
-                vida, velocidade, alcance, dano, time, "../resources/Guerreiro.png", "../resources/GuerreiroMorto.png");
-    }
-
-    public Guerreiro(Time time) {
-        this(10, 3, 1, 3, time);
-    }
-
     public Guerreiro() {
         super("Guerreiro", "Treinado para batalha e em excelente forma física, "
                 + "o guerreiro é extremamente ágil e forte. Possui uma poderosa"
                 + " espada capaz de matar seus inimigos com poucos golpes,"
-                + " mas terá que alcança-los primeiro.", Classes.Guerreiro);
+                + " mas terá que alcança-los primeiro.", Classes.Guerreiro,
+                10, 3, 1, 3,  "../resources/Guerreiro.png", "../resources/GuerreiroMorto.png");
+        this.poderes = new Poder[1];
+        poderes[0] = new Atletismo();
     }
 
     public void melhorarVelocidade() {

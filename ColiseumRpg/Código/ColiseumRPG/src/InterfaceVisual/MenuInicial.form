@@ -28,33 +28,21 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                      <Component id="labelComoSelecionar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblEscolhaClasse" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="lblEscolhaTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="radioVermelho" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Component id="radioAmarelo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="radioAzul" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                      <Component id="radioBranco" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="labelComoSelecionar" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lblEscolhaClasse" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="160" max="32767" attributes="0"/>
               <Component id="lblTitulo" min="-2" pref="440" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
               <Component id="btnConectar" min="-2" pref="160" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="330" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,24 +51,15 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="lblTitulo" min="-2" pref="100" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Component id="lblEscolhaTime" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="radioVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="radioAmarelo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="radioAzul" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="radioBranco" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Component id="lblEscolhaClasse" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="68" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="172" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="labelComoSelecionar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="btnConectar" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace pref="102" max="32767" attributes="0"/>
+              <EmptySpace pref="74" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -123,59 +102,6 @@
           <Font name="Arial" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Escolha duas classes para seus personagens:"/>
-        <Property name="alignmentX" type="float" value="0.5"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblEscolhaTime">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Escolha a cor de seu time:"/>
-        <Property name="alignmentX" type="float" value="0.5"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="radioVermelho">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="radioGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Time.VERMELHO.toString()" type="code"/>
-        </Property>
-        <Property name="alignmentX" type="float" value="0.5"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="radioAmarelo">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="radioGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Time.AMARELO.toString()" type="code"/>
-        </Property>
-        <Property name="alignmentX" type="float" value="0.5"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="radioAzul">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="radioGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Time.AZUL.toString()" type="code"/>
-        </Property>
-        <Property name="alignmentX" type="float" value="0.5"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="radioBranco">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="radioGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Time.BRANCO.toString()" type="code"/>
-        </Property>
         <Property name="alignmentX" type="float" value="0.5"/>
       </Properties>
     </Component>

@@ -10,8 +10,8 @@ import Erros.ForaDoAlcanceException;
 import Erros.UmPassoDeCadaVezException;
 import Poderes.TipoDePoderes.PoderLocalAlvo;
 import coliseumrpg.Personagem;
+import java.awt.Dimension;
 import java.util.HashMap;
-import javafx.geometry.Dimension2D;
 
 /**
  *
@@ -19,35 +19,37 @@ import javafx.geometry.Dimension2D;
  */
 public class Mapa {
 
-    private HashMap<Dimension2D, Lugar> alteracoes;
-    private HashMap<Personagem, Dimension2D> posicoesPersonagens;
+    private HashMap<Dimension, Lugar> alteracoes;
+    private HashMap<Personagem, Lugar> posicoesPersonagens;
     protected Lugar mapa[][];
 
-    public Mapa(Personagem pers1Jog1, Personagem pers2Jog1) {
+    public Mapa() {
         this.posicoesPersonagens = new HashMap<>();
         this.alteracoes = new HashMap<>();
 
         this.mapa = new Lugar[20][12];
         for (int i = 0; i < mapa.length; i++) {
             for (int j = 0; j < mapa[i].length; j++) {
-                mapa[i][j] = new Lugar();
+                mapa[i][j] = new Lugar(i, j);
             }
         }
-
-        posicionarPersonagem(pers1Jog1, new Dimension2D(3, 3));
-        posicionarPersonagem(pers2Jog1, new Dimension2D(3, 7));
     }
-    
-    public void adicionaPersonagensSegundoAJogar(Personagem pers1Jog2, Personagem pers2Jog2){
-        posicionarPersonagem(pers1Jog2, new Dimension2D(15, 3));
-        posicionarPersonagem(pers2Jog2, new Dimension2D(15, 7));
+
+    public void adicionaPersonagensPrimeiroAJogar(Personagem pers1, Personagem pers2) {
+        posicionarPersonagem(pers1, new Dimension(3, 2));
+        posicionarPersonagem(pers2, new Dimension(3, 9));
+    }
+
+    public void adicionaPersonagensSegundoAJogar(Personagem pers1, Personagem pers2) {
+        posicionarPersonagem(pers1, new Dimension(16, 2));
+        posicionarPersonagem(pers2, new Dimension(16, 9));
     }
 
     /**
      * @param p personagem que esta tentando se mover
      * @param destino local para onde o personagem deve se mover
      */
-    public void andar(Personagem p, Dimension2D destino) {
+    public void andar(Personagem p, Dimension destino) {
         int distancia = calculaDistancia(getPosicaoPersonagem(p), destino);
         if (distancia == 1) {
             posicionarPersonagem(p, destino);
@@ -59,20 +61,19 @@ public class Mapa {
 
     }
 
-    private void posicionarPersonagem(Personagem personagem, Dimension2D destino) {
+    private void posicionarPersonagem(Personagem personagem, Dimension destino) {
         Lugar alvo = getTarget(destino);
-        Dimension2D origem = posicoesPersonagens.get(personagem);
-        Lugar lugarOrigem = getTarget(origem);
+        Lugar lugarOrigem = posicoesPersonagens.get(personagem);
         if (lugarOrigem != null) {
             lugarOrigem.desocupar();
-            alteracoes.put(origem, lugarOrigem);
+            alteracoes.put(lugarOrigem.getCoordenada(), lugarOrigem);
         }
         alvo.ocupar(personagem);
         alteracoes.put(destino, alvo);
-        posicoesPersonagens.put(personagem, destino);
+        posicoesPersonagens.put(personagem, alvo);
     }
 
-    public void poderLocalAlvo(Dimension2D coordenadaOrigem, PoderLocalAlvo poder, Dimension2D coordenadaDestino) {
+    public void poderLocalAlvo(Dimension coordenadaOrigem, PoderLocalAlvo poder, Dimension coordenadaDestino) {
         int distancia = calculaDistancia(coordenadaOrigem, coordenadaDestino);
         if (distancia <= poder.getAlcance()) {
             Lugar alvo = getTarget(coordenadaDestino);
@@ -84,58 +85,64 @@ public class Mapa {
         }
     }
 
-    public void atacar(Personagem personagem, Dimension2D destino) {
-        Dimension2D origem = posicoesPersonagens.get(personagem);
-        if (personagem.getAlcance() >= calculaDistancia(origem, destino)) {
-            getTarget(destino).getPersonagem();
+    public void atacar(Personagem personagem, Dimension destino) {
+        Personagem alvo = getTarget(destino).getPersonagem();
+        if (alvo != null) {
+            Dimension origem = posicoesPersonagens.get(personagem).getCoordenada();
+            if (personagem.getAlcance() >= calculaDistancia(origem, destino)) {
+                alvo.receberDano(personagem.atacar());
+            } else {
+                throw new ForaDoAlcanceException("O alcance do ataque de seu personagem é " + personagem.getAlcance() + " quadrantes."
+                        + "\n Escolha um alvo mais próximo.");
+            }
         } else {
-            throw new ForaDoAlcanceException("O alcance do ataque de seu personagem é " + personagem.getAlcance() + " quadrantes."
-                    + "\n Escolha um alvo mais próximo.");
+            throw new ErroTolo("Não tem ninguem ai, você tentou atacar o vento?");
         }
     }
 
-    public Dimension2D getPosicaoPersonagem(Personagem p) {
-        return posicoesPersonagens.get(p);
+    public Dimension getPosicaoPersonagem(Personagem p) {
+        return posicoesPersonagens.get(p).getCoordenada();
     }
 
-    private int calculaDistancia(Dimension2D coordenadaOrigem, Dimension2D coordenadaDestino) {
+    private int calculaDistancia(Dimension coordenadaOrigem, Dimension coordenadaDestino) {
         int distanciaVertical = Math.abs((int) coordenadaOrigem.getHeight() - (int) coordenadaDestino.getHeight());
         int distanciaHorizontal = Math.abs((int) coordenadaOrigem.getWidth() - (int) coordenadaDestino.getWidth());
         return distanciaHorizontal + distanciaVertical;
     }
 
-    public Lugar getTarget(Dimension2D d) {
-        return d==null?null:mapa[(int) d.getWidth()][(int) d.getHeight()];
+    public Lugar getTarget(Dimension d) {
+        return d == null ? null : mapa[(int) d.getWidth()][(int) d.getHeight()];
     }
 
-    public void atualizar(HashMap<Dimension2D, Lugar> alteracoesMapa, HashMap<Personagem, Dimension2D> novaPosicaoPersonagens) {
+    public void atualizar(HashMap<Dimension, Lugar> alteracoesMapa, HashMap<Personagem, Lugar> novaPosicaoPersonagens) {
         this.posicoesPersonagens = novaPosicaoPersonagens;
         alteracoesMapa.forEach((coordenada, lugar) -> {
             mapa[(int) coordenada.getWidth()][(int) coordenada.getHeight()] = lugar;
         });
-    }
-
-    public HashMap<Dimension2D, Lugar> getAlteracoes() {
-        return this.alteracoes;
+        novaPosicaoPersonagens.forEach((pers, lugar) -> {
+            Dimension coordenada = lugar.getCoordenada();
+            mapa[(int) coordenada.getWidth()][(int) coordenada.getHeight()].ocupar(pers);
+        });
+        posicoesPersonagens = novaPosicaoPersonagens;
     }
 
     /**
-     * Pega as ultimas alterações feitas no mapa, como itens adicionados
-     * ou personagens que se moveram. Exemplo, se um personagem
-     * se moveu um quadrante teremos guardados o quadrante de onde ele saiu
-     * e o para onde ele foi.
-     * 
-     * Depois de enviar esse histórico é apagado.
-     * 
+     * Pega as ultimas alterações feitas no mapa, como itens adicionados ou
+     * personagens que se moveram. Exemplo, se um personagem se moveu um
+     * quadrante teremos guardados o quadrante de onde ele saiu e o para onde
+     * ele foi.
+     *
      * @return hashmap com dimensions referenciando os lugares alterados.
      */
-    public HashMap<Dimension2D, Lugar> getAlteracoesAndReset() {
-        HashMap paraEnviar = alteracoes;
-        alteracoes = new HashMap();
-        return paraEnviar;
+    public HashMap<Dimension, Lugar> getAlteracoes() {
+        return this.alteracoes;
     }
 
-    public HashMap<Personagem, Dimension2D> getPosicoesPersonagens() {
+    public void resetAlteracoes() {
+        alteracoes.clear();
+    }
+
+    public HashMap<Personagem, Lugar> getPosicoesPersonagens() {
         return posicoesPersonagens;
     }
 

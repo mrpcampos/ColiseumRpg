@@ -15,14 +15,13 @@ import coliseumrpg.Personagem;
  */
 public class Armadilha implements Colocavel {
 
-    private final int dano;
+    private final int dano = 2;
 
     private String icon = "../resources/Armadilha.png";
     private boolean estaFuncional;
     private final Time time;
 
     public Armadilha(Time time) {
-        this.dano = 2;
         this.time = time;
         this.estaFuncional = true;
     }
@@ -44,12 +43,12 @@ public class Armadilha implements Colocavel {
         }
         destruir();
         p.receberDano(dano);
-        if(p.estaVivo()){
+        if (p.estaVivo()) {
             icon = "../resources/ArmadilhaPressionada.png";
-        }else{
+        } else {
             icon = "../resources/ArmadilhaPressionadaComPe.png";
         }
-        
+
     }
 
     @Override
@@ -61,15 +60,39 @@ public class Armadilha implements Colocavel {
     public boolean estaFuncional() {
         return estaFuncional;
     }
-    
+
     @Override
-    public Boolean visivelPeloInimigo(){
+    public Boolean visivelPeloInimigo() {
         return false;
     }
 
     @Override
     public String getIcon() {
         return this.icon;
+    }
+
+    @Override
+    public String getDescricao() {
+        return estaFuncional() ? "Tem uma armadilha aqui, apenas nosso time pode ve-la então só quem pode ativa-la é o time inimigo." : "tinha uma armadilha aqui, mas ela foi ativada ou destruida.";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null) {
+            Armadilha tmp = (Armadilha) obj;
+            if (tmp.getTime().equals(getTime())) {
+                return true;
+
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 42;
+        result = 2 * result + time.hashCode();
+        return result;
     }
 
 }

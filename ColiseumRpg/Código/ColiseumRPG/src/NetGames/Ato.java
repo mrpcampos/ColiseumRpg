@@ -4,36 +4,37 @@ import Mapa.Lugar;
 import br.ufsc.inf.leobr.cliente.Jogada;
 import coliseumrpg.Personagem;
 import coliseumrpg.Turno;
+import java.awt.Dimension;
 import java.util.HashMap;
-import javafx.geometry.Dimension2D;
 
 public class Ato implements Jogada {
 
     protected final Turno turno;
-    protected final Personagem[][] personagens;
-    protected final HashMap<Personagem, Dimension2D> novaPosicoesPersonagens;
-    protected final HashMap<Dimension2D, Lugar> alteracoesMapa;
+    protected final HashMap<Dimension, Lugar> lugaresRelevantes;
 
-    public Ato(Turno turno, HashMap<Personagem, Dimension2D> novaPosicoesPersonagens, HashMap<Dimension2D, Lugar> alteracoesMapa, Personagem[][] personagens) {
+    public Ato(Turno turno, HashMap<Personagem, Lugar> novaPosicoesPersonagens, HashMap<Dimension, Lugar> alteracoesMapa, Personagem[][] personagens) {
         this.turno = turno;
-        this.alteracoesMapa = alteracoesMapa;
-        this.novaPosicoesPersonagens = novaPosicoesPersonagens;
-        this.personagens = personagens;
+        this.lugaresRelevantes = alteracoesMapa;
+        novaPosicoesPersonagens.forEach((pers, lugar) -> {
+            this.lugaresRelevantes.put(lugar.getCoordenada(), lugar);
+        });
     }
 
     public Turno getTurno() {
         return turno;
     }
 
-    public HashMap<Dimension2D, Lugar> getAlteracoesMapa() {
-        return alteracoesMapa;
+    public HashMap<Dimension, Lugar> getAlteracoesMapa() {
+        return lugaresRelevantes;
     }
 
-    public Personagem[][] getPersonagens() {
-        return personagens;
-    }
-
-    public HashMap<Personagem, Dimension2D> getNovaPosicoesPersonagens() {
+    public HashMap<Personagem, Lugar> getNovaPosicoesPersonagens() {
+        HashMap<Personagem, Lugar> novaPosicoesPersonagens = new HashMap();
+        lugaresRelevantes.forEach((coordenada, lugar) -> {
+            if(lugar.estaOcupado()){
+                novaPosicoesPersonagens.put(lugar.getPersonagem(), lugar);
+            }
+        });
         return novaPosicoesPersonagens;
     }
 

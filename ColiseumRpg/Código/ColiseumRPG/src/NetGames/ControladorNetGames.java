@@ -25,12 +25,13 @@ public class ControladorNetGames implements OuvidorProxy {
         proxy.addOuvinte(this);
     }
 
-    public void conectar(String ipDoServidor, Time identificadorDoJogador) {
+    public void conectar(String ipDoServidor) {
         try {
-            proxy.conectar(ipDoServidor, identificadorDoJogador.toString());
+            proxy.conectar(ipDoServidor, "jogador");
+//            pedirIniciarPartida();
+            ControladorTelas.infoDialog("Conectado ao servidor, pressione novamente para tentar encontrar partida.");
         } catch (JahConectadoException ex) {
-            Logger.getLogger(ControladorNetGames.class.getName()).log(Level.SEVERE, null, ex);
-            ControladorTelas.errorDialog("Você ja esta conectado.");
+            pedirIniciarPartida();
         } catch (NaoPossivelConectarException ex) {
             Logger.getLogger(ControladorNetGames.class.getName()).log(Level.SEVERE, null, ex);
             ControladorTelas.errorDialog("Não foi possível conectar.\nVerifique sua conexão com a internet e o estado do servidor.");
@@ -79,18 +80,23 @@ public class ControladorNetGames implements OuvidorProxy {
 
     @Override
     public void finalizarPartidaComErro(String message) {
-        ControladorTelas.getInstance().abrirTelaFimDeJogo();
-        ControladorTelas.errorDialog(message);
+        ColiseumRPG.getInstance().encerrarJogo();
+        ControladorTelas.getInstance().abrirTelaInicial();
     }
 
     @Override
     public void receberMensagem(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Enviar Mensagem não deveria ser usado nesse jogo.");
     }
 
     @Override
     public void receberJogada(Jogada jogada) {
-        coliseumRPG.tratarJogada((Ato) jogada);
+        try {
+            coliseumRPG.tratarJogada((Ato) jogada);
+        } catch (RuntimeException e) {
+            Logger.getLogger(ControladorNetGames.class.getName()).log(Level.SEVERE, null, e);
+            ControladorTelas.errorDialog("Falha ao tratar jogada.\n"+e.getMessage());
+        }
     }
 
     @Override
@@ -100,7 +106,7 @@ public class ControladorNetGames implements OuvidorProxy {
 
     @Override
     public void tratarPartidaNaoIniciada(String message) {
-        ControladorTelas.errorDialog("Recurso Solicitado somente disponiveldepois de iniciar partida.\n" + message);
+        ControladorTelas.errorDialog("Partida não iniciada.\n" + message);
     }
 
     public static ControladorNetGames getInstance() {
@@ -108,11 +114,7 @@ public class ControladorNetGames implements OuvidorProxy {
     }
 
     public Time getTimeAdversario(boolean minhaVez) {
-        if (minhaVez) {
-            return Time.valueOf(proxy.obterNomeAdversario(2));
-        } else {
-            return Time.valueOf(proxy.obterNomeAdversario(1));
-        }
+        return minhaVez?Time.VERMELHO:Time.AZUL;
     }
 
 }

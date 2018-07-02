@@ -6,6 +6,7 @@
 package Poderes;
 
 import Classes.Mago;
+import Erros.ErroTolo;
 import Erros.NenhumPersonagemNoQuadranteException;
 import Mapa.Lugar;
 import Poderes.TipoDePoderes.Custo;
@@ -27,8 +28,12 @@ public class Congelamento extends Magia {
     public void usar(Lugar alvo) {
         temManaSuficiente(caster);
         if (alvo.getPersonagem() != null) {
-            alvo.getPersonagem().incapacitar(1);
-            caster.gastarMana(custoMana);
+            if (!alvo.getPersonagem().equals(caster)) {
+                alvo.getPersonagem().incapacitar(1);
+                caster.gastarMana(custoMana);
+            } else {
+                throw new ErroTolo("Não congele a si mesmo, idiota.");
+            }
         } else {
             throw new NenhumPersonagemNoQuadranteException();
         }
